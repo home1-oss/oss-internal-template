@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                        http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+
+
+    <localRepository>${user.home}/.m2/repository</localRepository>
+    <interactiveMode/>
+    <usePluginRegistry/>
+    <offline/>
+
+    <proxies>
+        <!--proxy>
+            <id>http-proxy</id>
+            <active>true</active>
+            <protocol>http</protocol>
+            <host>127.0.0.1</host>
+            <port>8080</port>
+        </proxy-->
+    </proxies>
+
+    <mirrors>
+
+
+
+
+
+
+        <mirror>
+            <id>internal-nexus3-mirror</id>
+            <name>internal nexus3 mirror</name>
+            <url>${internal-nexus3.repository}/maven-public/</url>
+            <!--mirrorOf>central,spring-libs-release,spring-milestone,spring-libs-snapshot,conjars.org,clojars.org,org.jboss.repository,codehaus-mule-repo,repo.jenkins-ci.org</mirrorOf-->
+            <mirrorOf>external:*,!github-chshawkn-wagon-maven-plugin</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <servers>
+        <server>
+            <id>gpg.passphrase</id>
+            <passphrase>${env.GPG_PASSPHRASE}</passphrase>
+        </server>
+        <server>
+            <id>internal-nexus3-releases</id>
+            <username>deployment</username>
+            <password><![CDATA[ Encrypt server password `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, replace this entire CDATA to command output ]]></password>
+        </server>
+        <server>
+            <id>internal-nexus3-snapshots</id>
+            <username>deployment</username>
+            <password><![CDATA[ Encrypt server password `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, replace this entire CDATA to command output ]]></password>
+        </server>
+        <server>
+            <id>internal-nexus3-thirdparty</id>
+            <username>deployment</username>
+            <password><![CDATA[ Encrypt server password `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, replace this entire CDATA to command output ]]></password>
+        </server>
+        <server>
+            <id>internal-mvnsite</id>
+            <username>deployment</username>
+            <password><![CDATA[ Encrypt server password `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, replace this entire CDATA to command output ]]></password>
+        </server>
+    </servers>
+
+    <activeProfiles>
+        <activeProfile>infrastructure-internal</activeProfile>
+    </activeProfiles>
+
+    <pluginGroups>
+        <pluginGroup>org.apache.maven.plugins</pluginGroup>
+        <pluginGroup>org.codehaus.mojo</pluginGroup>
+        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+    </pluginGroups>
+
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
+                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+            </properties>
+        </profile>
+        <profile>
+            <id>default-internal-sonar-host-url</id>
+            <activation>
+                <property>
+                    <name>!internal-sonar.host.url</name>
+                </property>
+            </activation>
+            <properties>
+                <internal-sonar.host.url>http://sonarqube.internal:9000</internal-sonar.host.url>
+            </properties>
+        </profile>
+        <profile>
+            <id>infrastructure-internal</id>
+            <properties>
+                <sonar.host.url>${internal-sonar.host.url}</sonar.host.url>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>internal-nexus3-releases</id>
+                    <name>internal nexus3 releases</name>
+                    <url>${internal-nexus3.repository}/maven-releases/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>false</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>internal-nexus3-snapshots</id>
+                    <name>internal nexus3 snapshots</name>
+                    <url>${internal-nexus3.repository}/maven-snapshots/</url>
+                    <releases><enabled>false</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>internal-nexus3-thirdparty</id>
+                    <name>internal nexus3 thirdparty</name>
+                    <url>${internal-nexus3.repository}/maven-thirdparty/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>internal-nexus3-releases</id>
+                    <name>internal nexus3 releases</name>
+                    <url>${internal-nexus3.repository}/maven-releases/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>false</enabled></snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>internal-nexus3-snapshots</id>
+                    <name>internal nexus3 snapshots</name>
+                    <url>${internal-nexus3.repository}/maven-snapshots/</url>
+                    <releases><enabled>false</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>internal-nexus3-thirdparty</id>
+                    <name>internal nexus3 thirdparty</name>
+                    <url>${internal-nexus3.repository}/maven-thirdparty/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+</settings>

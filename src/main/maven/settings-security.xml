@@ -1,0 +1,3 @@
+<settingsSecurity>
+ <master><![CDATA[ Create master password by `mvn --encrypt-master-password <password>`, replace this entire CDATA to command output ]]></master>
+</settingsSecurity>
