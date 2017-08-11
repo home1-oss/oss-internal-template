@@ -53,3 +53,8 @@ Infrastructure specific CI configurations for projects that depends on organizat
 - `src/main/maven`  
   Generate maven's master password `mvn --encrypt-master-password <password>`, put it in `src/main/maven/settings-security.xml`.  
   Encrypt server passwords `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, put them in `src/main/maven/settings.xml`.
+
+## See also
+
+[oss-github](https://github.com/home1-oss/oss-github)
+[oss-local](https://github.com/home1-oss/oss-local)
