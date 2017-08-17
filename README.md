@@ -39,7 +39,8 @@ Infrastructure specific CI configurations for projects that depends on organizat
 
 - `src/main/docker`  
   If organization internal docker registry is protected by password, 
-  login organization internal docker registry and copy `~/.docker/config.json` here.
+  login organization internal docker registry (`docker login registry.docker.internal`) and copy `~/.docker/config.json` here.
+  You may need to uncheck 'Securely store docker logins in macOS keychain'
 
 - `src/main/jenkins`  
   If you use scp and ssh to deploy services, you need to replace keys come along with this repo.  
@@ -52,7 +53,7 @@ Infrastructure specific CI configurations for projects that depends on organizat
 
 - `src/main/maven`  
   Generate maven's master password `mvn --encrypt-master-password <password>`, put it in `src/main/maven/settings-security.xml`.  
-  Encrypt server passwords `mvn -Dsettings.security=$(pwd)/security-settings.xml --encrypt-password <password>`, put them in `src/main/maven/settings.xml`.
+  Encrypt server passwords `mvn -Dsettings.security=$(pwd)/settings-security.xml --encrypt-password <password>`, put them in `src/main/maven/settings.xml`.
 
 ## See also
 

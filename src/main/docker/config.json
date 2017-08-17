@@ -1,7 +1,7 @@
 {
-	"auths": {
-		"registry.docker.internal": {
-			"auth": "<login organization internal docker registry and put its token here>"
+	"auths" : {
+		"registry.docker.internal" : {
+			"auth" : "<login organization internal docker registry and put its token here>"
 		}
 	}
 }
